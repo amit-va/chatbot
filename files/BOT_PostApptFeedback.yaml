@@ -1,0 +1,49 @@
+bot:
+  name: PostApptFeedback
+rules:
+  - step: utter_greet
+    text: "Hi entity_PatientFirstName, on a scale of 1-10, would you recommend Dr entity_DoctorLastName to a friend or family member? 1 = Would not recommend, 10 = Would strongly recommend"
+    entity:
+      - entity_PatientFirstName
+      - entity_DoctorLastName
+    action:
+      FormNumber:
+        name: getFormNumber
+        range:
+          - 1
+          - 10
+  - step: utter_ProviderFeedback
+    text: "Thank you. You were diagnosed with entity_Diagnosis. Did Dr entity_DoctorLastName explain how to manage this diagnosis in a way you could understand?"
+    entity:
+      - entity_Diagnosis
+      - entity_DoctorLastName
+    action:
+      FormOption:
+      name: getFormOptionYesNo
+      range:
+        - ONE:
+          Display: 'Yes'
+          Synonyms:
+            - 'Yes'
+            - 'yes'
+            - 'Yeah'
+            - 'yea'
+            - 'Right'
+        - TWO:
+          Display: 'No'
+          Synonyms:
+            - 'No'
+            - 'no'
+            - 'Nope'
+            - 'nada'
+  - step: utter_DiagnosisFeedback
+    text: "We appreciate the feedback, one last question: how do you feel about being diagnosed with entity_Diagnosis?"
+    entity:
+      - entity_Diagnosis
+    action:
+      UserEntry:
+  - step: utter_ProvideSummary
+    text: "Thanks again! Here's what we heard: \n"
+    entity:
+    action:
+      Goodbye:
