@@ -97,15 +97,14 @@ def applyRulesActions(actions: dict, tracker: dict) :
         for options in actions['range']:
             # print (type(options['Synonyms']),options['Synonyms'])
             for option_val in options['Synonyms']:
-                # print (type(option_val),option_val)
-                # print (type(raw_response),raw_response)
-                response['display'] = options['Display']
-                response['raw_response'] = raw_response
                 if option_val in raw_response :
                     response_value = 1
-                    # print ('response_value', response_value)
+                    print (response)
                     response['option_val'] = option_val
                     response['value'] = response_value
+                    response['display'] = options['Display']
+                    response['raw_response'] = raw_response
+                    print (response)
                     break
     elif 'UserEntry' in actions:
         raw_response = getRawInput()
